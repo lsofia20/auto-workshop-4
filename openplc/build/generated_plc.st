@@ -1,0 +1,27 @@
+PROGRAM workshop_4
+  VAR
+    B1 AT %IX0.0 : BOOL;
+    B2 AT %IX0.1 : BOOL;
+    B3 AT %IX0.2 : BOOL;
+    H1 AT %QX0.0 : BOOL;
+    H2 AT %QX0.1 : BOOL;
+    H3 AT %QX0.2 : BOOL;
+    H4 AT %QX0.3 : BOOL;
+    H5 AT %QX0.4 : BOOL;
+  END_VAR
+
+  H1 := B1 AND B2 AND NOT(B3);
+  H2 := B1 AND NOT(B2) AND NOT(B3);
+  H3 := B1 AND B2 AND B3;
+  H4 := NOT(B1) AND NOT(B2) AND NOT(B3);
+  H5 := NOT(B2) AND B3 OR NOT(B1) AND B2;
+END_PROGRAM
+
+
+CONFIGURATION Config0
+
+  RESOURCE Res0 ON PLC
+    TASK task0(INTERVAL := T#20ms,PRIORITY := 0);
+    PROGRAM instance0 WITH task0 : workshop_4;
+  END_RESOURCE
+END_CONFIGURATION
